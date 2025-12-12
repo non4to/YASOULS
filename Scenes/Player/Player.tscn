@@ -1,7 +1,15 @@
-[gd_scene load_steps=4 format=3 uid="uid://bt18arocr2l3n"]
+[gd_scene load_steps=6 format=3 uid="uid://bt18arocr2l3n"]
 
 [ext_resource type="Script" uid="uid://w66rmah2jocn" path="res://Scenes/Player/character_body_2d.gd" id="1_ft8w5"]
 [ext_resource type="Texture2D" uid="uid://bes2ff1v05qg2" path="res://Scenes/Player/tile_0096.png" id="2_ft8w5"]
+
+[sub_resource type="Animation" id="Animation_ft8w5"]
+resource_name = "roll_right"
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_h54ih"]
+_data = {
+&"roll_right": SubResource("Animation_ft8w5")
+}
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ft8w5"]
 radius = 5.0
@@ -12,15 +20,23 @@ height = 14.0
 [node name="CharacterBody2D" type="CharacterBody2D" parent="."]
 script = ExtResource("1_ft8w5")
 
-[node name="Sprite2D" type="Sprite2D" parent="CharacterBody2D"]
+[node name="knightSprite" type="Sprite2D" parent="CharacterBody2D"]
+unique_name_in_owner = true
+position = Vector2(0, -8)
 texture = ExtResource("2_ft8w5")
 
+[node name="rollAnim" type="AnimationPlayer" parent="CharacterBody2D/knightSprite"]
+libraries = {
+&"": SubResource("AnimationLibrary_h54ih")
+}
+
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D"]
-position = Vector2(0, 1)
+position = Vector2(0, -7)
 shape = SubResource("CapsuleShape2D_ft8w5")
 
 [node name="Label1" type="Label" parent="CharacterBody2D"]
 unique_name_in_owner = true
+visible = false
 offset_left = -20.0
 offset_top = -29.0
 offset_right = 20.0
