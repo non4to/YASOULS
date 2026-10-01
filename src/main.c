@@ -18,29 +18,34 @@ void draw(Player *p, World *w) {
     //Collisions DEBUG
     world_draw(w);
 
-
 }
 
 int main(void) {
-    World world;
-    world_init(&world);
     int screenWidth = 600;
     int screenHeight = 400;
     char *title = "YASOULS";
+    InitWindow(screenWidth, screenHeight, title);
 
+    World world;
+    world_init(&world);
     Player player;
-    player_init(&player, 20, 40, 50, 100, 300.0);
+    player_init(&player, &world, 50, 100);
 
     //Test platforms
-    Hitbox plat1 = {BOX_PUSH, true, (Rectangle){400,380,200,20}};
+    Hitbox plat1 = {NULL, BOX_PUSH, true, (Rectangle){400,380,200,20}};
     world_add_hitbox(&world, &plat1);
-    Hitbox plat2 = {BOX_PUSH, true, (Rectangle){550,300,50,20}};
+    Hitbox plat2 = {NULL, BOX_PUSH, true, (Rectangle){550,300,50,20}};
     world_add_hitbox(&world, &plat2);
-    Hitbox floor1 = {BOX_PUSH, true, (Rectangle){0,screenHeight,screenWidth,20}};
+    Hitbox floor1 = {NULL, BOX_PUSH, true, (Rectangle){0,screenHeight,screenWidth,20}};
     world_add_hitbox(&world, &floor1);
     //End test platforms
+    //Test HurtBoxes
+        // Hitbox body1 = {NULL, BOX_PUSH, true, (Rectangle){520,340,20,40}};
+        // Hitbox hurt1 = {NULL, BOX_HURT, true, (Rectangle){523,350,14,30}};
+        // world_add_hitbox(&world, &body1);
+        // world_add_hitbox(&world, &hurt1);
+    //End testHurtBoxes
 
-    InitWindow(screenWidth, screenHeight, title);
     SetTargetFPS(60);
 
     while (!WindowShouldClose()) {
@@ -52,6 +57,8 @@ int main(void) {
         draw(&player, &world);
         EndDrawing();
     }
+    
+    UnloadTexture(player.spritesheet);
     CloseWindow();
     return 0;
 }

@@ -1,2 +1,2 @@
-yasouls: src/main.c src/player/player.c src/player/playerStates.c src/world/world.c
-	gcc src/main.c src/player/player.c src/player/playerStates.c src/world/world.c -o yasouls -lraylib -lGL -lm -lpthread -ldl -lrt -lX11
+yasouls: src/main.c src/player/player_config.h src/player/player.c src/player/player.h src/player/playerStates.c src/player/basePlayerState.h src/player/playerStates.h src/world/world.c src/world/world.h src/Tools/animation.h src/Tools/animation.c
+	gcc src/main.c src/player/player_config.h src/player/player.c src/player/player.h src/player/playerStates.c src/player/basePlayerState.h src/player/playerStates.h src/world/world.c src/world/world.h src/Tools/animation.h src/Tools/animation.c -o yasouls -lraylib -lGL -lm -lpthread -ldl -lrt -lX11

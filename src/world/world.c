@@ -42,7 +42,6 @@ MoveResult world_move(World *w, Hitbox *h, float xGoal, float yGoal) {
     MoveResult output = {(Vector2){xGoal, yGoal}, false, false, false, false};
     Rectangle testRectX = {output.position.x, h->rect.y, h->rect.width, h->rect.height};
 
-
     //First, check X collisions
     for (int i=0; i < w->pushboxesCount; i++) {
         Hitbox *aPushBox = w->pushboxes[i]; //just the adress
@@ -97,6 +96,21 @@ MoveResult world_move(World *w, Hitbox *h, float xGoal, float yGoal) {
 void world_draw(World *w) {
     //draw all push boxes
     for (int i=0; i < w->pushboxesCount; i++) {
-        DrawRectangleLines(w->pushboxes[i]->rect.x, w->pushboxes[i]->rect.y, w->pushboxes[i]->rect.width, w->pushboxes[i]->rect.height, BLACK);                   
+        if (w->pushboxes[i]->active){
+            DrawRectangleLines(w->pushboxes[i]->rect.x, w->pushboxes[i]->rect.y, w->pushboxes[i]->rect.width, w->pushboxes[i]->rect.height, BLACK);                   
+        }
     }
+    // //draw all atk boxes
+    // for (int i=0; i < w->atkboxesCount; i++) {
+    //     if (w->atkboxes[i]->active){
+    //         DrawRectangleLines(w->atkboxes[i]->rect.x, w->atkboxes[i]->rect.y, w->atkboxes[i]->rect.width, w->atkboxes[i]->rect.height, PINK);                   
+    //     }
+    // }
+    // //draw all hurt boxes
+    // for (int i=0; i < w->hurtboxesCount; i++) {
+    //     if (w->hurtboxes[i]->active){
+    //         DrawRectangleLines(w->hurtboxes[i]->rect.x, w->hurtboxes[i]->rect.y, w->hurtboxes[i]->rect.width, w->hurtboxes[i]->rect.height, RED);                   
+    //     }
+    // }
+
 }

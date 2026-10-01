@@ -16,6 +16,7 @@ typedef enum HitboxType {
 } HitboxType;
 
 typedef struct Hitbox {
+    void *owner;
     HitboxType hitboxType;
     bool active;
     Rectangle rect;

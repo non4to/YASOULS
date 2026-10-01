@@ -2,6 +2,8 @@
 
 #define BASE_PLAYER_STATE_H
 
+#include "../Tools/animation.h"
+
 typedef struct Player Player;
 
 typedef struct PlayerState {
@@ -9,6 +11,7 @@ typedef struct PlayerState {
     void (*update)(Player *p, float dt);
     void (*draw)(Player *p);
     void (*exit)(Player *p);
+    Animation animate;
 } PlayerState;
 
 #endif
