@@ -3,12 +3,12 @@
 #include <raylib.h>
 
 typedef struct Animation {
-    Texture *spriteSheet;
+    const Texture *spriteSheet;
     Vector2 frameSize;
     int spriteSheetLineNumber;
     int finalFrameIndex;
     bool loop; 
-    float *frameTimes; //ex:. static const float idleTimes[] = { 0.1f, 0.2f, 0.05f, ... };
+    const float *frameTimes; //ex:. static const float idleTimes[] = { 0.1f, 0.2f, 0.05f, ... };
     float counter;
     int currentFrame;   
 } Animation;

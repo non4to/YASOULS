@@ -1,4 +1,32 @@
 #include "world.h"
+#include <stdio.h>
+
+void add2HitList(Hitbox *attacker, Hitbox *receiver) {
+    for (int i=0; i < MAX_TARGETS; i++) {
+            if (attacker->targetsHit[i]==NULL) {
+                attacker->targetsHit[i] = receiver;
+                break;
+            }
+        }
+}
+
+bool was_hit_before(Hitbox *attacker, Hitbox *receiver) {
+    bool output = false;
+    for (int i=0; i < MAX_TARGETS; i++) {
+        if (attacker->targetsHit[i] == receiver) { 
+            output = true;
+            break;
+        }
+    }
+    return output;
+}
+
+void reset_combat_event_results(CombatEventResult *c) {
+    c->gotDeflected = false;
+    c->gotDeflectedBy = NULL;
+    c->gotHit = false;
+    c->gotHitBy = NULL;
+}
 
 void world_init(World *w) {
     w->pushboxesCount = 0;
@@ -93,6 +121,37 @@ MoveResult world_move(World *w, Hitbox *h, float xGoal, float yGoal) {
     return output;
 }
 
+void check_atks(World *w) {
+    for (int i=0; i < w->atkboxesCount; i++) {
+        Hitbox *atkBox = w->atkboxes[i];
+        if (atkBox->active) { //only active boxes are checked
+           for (int j=0; j < w->blockboxesCount; j++) { //check block boxes
+                Hitbox *targetBlockBox = w->blockboxes[j];
+                if ((targetBlockBox->active)&&(targetBlockBox->owner!=atkBox->owner)) { // deal with active boxes that are not from the same atk owner
+                    if (CheckCollisionRecs(atkBox->rect, targetBlockBox->rect)) {
+                        targetBlockBox->on_deflected(targetBlockBox->owner, atkBox);
+                    }
+                }
+           }
+            for (int j=0; j < w->hurtboxesCount; j++) { //check hurt boxes 
+                Hitbox *targetHurtBox = w->hurtboxes[j];
+                if ((targetHurtBox->active)&&(targetHurtBox->owner!=atkBox->owner)) { // deal with active boxes that are not from the same atk owner
+                    if (CheckCollisionRecs(atkBox->rect, targetHurtBox->rect)) {
+                        if (!was_hit_before(atkBox, targetHurtBox)) {
+                            add2HitList(atkBox,targetHurtBox);
+                            targetHurtBox->on_hit(targetHurtBox->owner, atkBox);                        
+                        }
+                    }
+                }
+           }
+        }
+    }
+}
+
+void world_update(World *w) {
+    check_atks(w);
+}
+
 void world_draw(World *w) {
     //draw all push boxes
     for (int i=0; i < w->pushboxesCount; i++) {
@@ -100,17 +159,23 @@ void world_draw(World *w) {
             DrawRectangleLines(w->pushboxes[i]->rect.x, w->pushboxes[i]->rect.y, w->pushboxes[i]->rect.width, w->pushboxes[i]->rect.height, BLACK);                   
         }
     }
-    // //draw all atk boxes
-    // for (int i=0; i < w->atkboxesCount; i++) {
-    //     if (w->atkboxes[i]->active){
-    //         DrawRectangleLines(w->atkboxes[i]->rect.x, w->atkboxes[i]->rect.y, w->atkboxes[i]->rect.width, w->atkboxes[i]->rect.height, PINK);                   
-    //     }
-    // }
-    // //draw all hurt boxes
-    // for (int i=0; i < w->hurtboxesCount; i++) {
-    //     if (w->hurtboxes[i]->active){
-    //         DrawRectangleLines(w->hurtboxes[i]->rect.x, w->hurtboxes[i]->rect.y, w->hurtboxes[i]->rect.width, w->hurtboxes[i]->rect.height, RED);                   
-    //     }
-    // }
+    //draw all atk boxes
+    for (int i=0; i < w->atkboxesCount; i++) {
+        if (w->atkboxes[i]->active){
+            DrawRectangleLines(w->atkboxes[i]->rect.x, w->atkboxes[i]->rect.y, w->atkboxes[i]->rect.width, w->atkboxes[i]->rect.height, PINK);                   
+        }
+    }
+    //draw all hurt boxes
+    for (int i=0; i < w->hurtboxesCount; i++) {
+        if (w->hurtboxes[i]->active){
+            DrawRectangleLines(w->hurtboxes[i]->rect.x, w->hurtboxes[i]->rect.y, w->hurtboxes[i]->rect.width, w->hurtboxes[i]->rect.height, RED);                   
+        }
+    }
+    //draw all block boxes
+    for (int i=0; i < w->blockboxesCount; i++) {
+        if (w->blockboxes[i]->active){
+            DrawRectangleLines(w->blockboxes[i]->rect.x, w->blockboxes[i]->rect.y, w->blockboxes[i]->rect.width, w->blockboxes[i]->rect.height, GREEN);                   
+        }
+    }
 
 }

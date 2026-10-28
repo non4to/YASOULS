@@ -16,16 +16,41 @@
 #define   PLAYER_MOVEMENT_AIR_MULTIPLIER        (0.025f)
 #define   PLAYER_MOVEMENT_FLOOR_MULTIPLIER      (0.025f)
 
-#define   PLAYER_ATK1_BOX_X_OFFSET              (PLAYER_WIDTH)
-#define   PLAYER_ATK1_BOX_Y_OFFSET              (PLAYER_HEIGHT/4)
-#define   PLAYER_ATK1_BOX_WIDTH                 (30.0f)
-#define   PLAYER_ATK1_BOX_HEIGHT                (3*PLAYER_HEIGHT/4)
-#define   ATK1_DURATION                         (0.5f)
+#define   PLAYER_ATK1_BOX_Y_OFFSET              (-10)
+#define   PLAYER_ATK1_BOX_WIDTH                 (20.0f)
+#define   PLAYER_ATK1_BOX_HEIGHT                (PLAYER_PUSH_BOX_HEIGHT)
+#define   ATK1_DURATION                         (0.3f)
+#define   ATK1_SMALL_DASH                       (0.05f)
+
+#define   PLAYER_ATK2_BOX_Y_OFFSET              (-12)
+#define   PLAYER_ATK2_BOX_WIDTH                 (20.0f)
+#define   PLAYER_ATK2_BOX_HEIGHT                (PLAYER_PUSH_BOX_HEIGHT)
+#define   ATK2_DURATION                         (0.3)
+#define   ATK2_SMALL_DASH                       (0.05f)
+
+#define   PLAYER_ATK3_BOX_Y_OFFSET              (-10)
+#define   PLAYER_ATK3_BOX_WIDTH                 (25.0f)
+#define   PLAYER_ATK3_BOX_HEIGHT                (PLAYER_PUSH_BOX_HEIGHT)
+#define   ATK3_DURATION                         (0.85f)
+#define   ATK3_SMALL_DASH                       (0.1f)
+
+#define   PLAYER_CHARGE_ATK_MIN_DURATION        (0.5f)
+#define   PLAYER_CHARGE_ATK_MAX_DURATION        (2.0f)
+#define   PLAYER_CHARGEATK_BOX_Y_OFFSET         (-PLAYER_PUSH_BOX_HEIGHT*1.2)
+#define   PLAYER_CHARGEATK_BOX_WIDTH            (25.0f)
+#define   PLAYER_CHARGEATK_BOX_HEIGHT           (PLAYER_PUSH_BOX_HEIGHT*2.3)
+#define   CHARGEATK_DURATION                    (0.8f)
+#define   CHARGEATK_CHARGE_FRAME_DURATION       (0.10f)
 
 #define   PLAYER_HURT_BOX_X_OFFSET  (0)
 #define   PLAYER_HURT_BOX_Y_OFFSET  (0)
 #define   PLAYER_HURT_BOX_WIDTH     (PLAYER_PUSH_BOX_WIDTH)
 #define   PLAYER_HURT_BOX_HEIGHT    (PLAYER_PUSH_BOX_HEIGHT)
+
+#define   PLAYER_BLOCK_BOX_X_OFFSET  (PLAYER_PUSH_BOX_WIDTH/2)
+#define   PLAYER_BLOCK_BOX_Y_OFFSET  (-PLAYER_PUSH_BOX_HEIGHT/2)
+#define   PLAYER_BLOCK_BOX_WIDTH     (PLAYER_PUSH_BOX_WIDTH)
+#define   PLAYER_BLOCK_BOX_HEIGHT    (PLAYER_PUSH_BOX_HEIGHT * 1.5)
 
 //TODO: If sprite is centered, all X offsets follow this formula. If they all have the same Y reference, same thing.
 //This might be reduced to an only one define
@@ -39,6 +64,12 @@
 #define PLAYER_FALL_SPRITE_OFFSET_Y (2*PLAYER_PUSH_BOX_HEIGHT - FRAME_HEIGHT)
 #define PLAYER_ATK1_SPRITE_OFFSET_X ((PLAYER_PUSH_BOX_WIDTH - FRAME_WIDTH) / 2.0f)
 #define PLAYER_ATK1_SPRITE_OFFSET_Y (2*PLAYER_PUSH_BOX_HEIGHT - FRAME_HEIGHT)
+#define PLAYER_ATK2_SPRITE_OFFSET_X ((PLAYER_PUSH_BOX_WIDTH - FRAME_WIDTH) / 2.0f)
+#define PLAYER_ATK2_SPRITE_OFFSET_Y (2*PLAYER_PUSH_BOX_HEIGHT - FRAME_HEIGHT)
+#define PLAYER_ATK3_SPRITE_OFFSET_X ((PLAYER_PUSH_BOX_WIDTH - FRAME_WIDTH) / 2.0f)
+#define PLAYER_ATK3_SPRITE_OFFSET_Y (2*PLAYER_PUSH_BOX_HEIGHT - FRAME_HEIGHT)
+#define PLAYER_CHARGEATK_SPRITE_OFFSET_X ((PLAYER_PUSH_BOX_WIDTH - FRAME_WIDTH) / 2.0f)
+#define PLAYER_CHARGEATK_SPRITE_OFFSET_Y (2*PLAYER_PUSH_BOX_HEIGHT - FRAME_HEIGHT)
 #define PLAYER_BLOCK_SPRITE_OFFSET_X ((PLAYER_PUSH_BOX_WIDTH - FRAME_WIDTH) / 2.0f)
 #define PLAYER_BLOCK_SPRITE_OFFSET_Y (2*PLAYER_PUSH_BOX_HEIGHT - FRAME_HEIGHT)
 #endif

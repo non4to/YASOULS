@@ -31,5 +31,11 @@ void animation_draw(Animation *a, Vector2 position, bool flip) {
         .width = a->frameSize.x * reverse,
         .height = a->frameSize.y
     };
-    DrawTextureRec(*a->spriteSheet, frameRec, position, WHITE);
+
+    Vector2 snappedPosition = {
+        .x = (float)(int)position.x,
+        .y = (float)(int)position.y
+    };
+    
+    DrawTextureRec(*a->spriteSheet, frameRec, snappedPosition, WHITE);
 }

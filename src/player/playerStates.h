@@ -37,6 +37,7 @@ void playerState_block_init(Player *p);
 void playerState_block_update(Player *p, float dt);
 void playerState_block_draw(Player *p);
 void playerState_block_exit(Player *p);
+void update_block_box_position(Player *p);
 extern PlayerState playerBlockState;
 
 //ATK1 STATE
@@ -46,6 +47,30 @@ void playerState_atk1_draw(Player *p);
 void playerState_atk1_exit(Player *p);
 void update_atk1_box_position(Player *p);
 extern PlayerState playerAtk1State;
+
+//ATK2 STATE
+void playerState_atk2_init(Player *p);
+void playerState_atk2_update(Player *p, float dt);
+void playerState_atk2_draw(Player *p);
+void playerState_atk2_exit(Player *p);
+void update_atk2_box_position(Player *p);
+extern PlayerState playerAtk2State;
+
+//ATK3 STATE
+void playerState_atk3_init(Player *p);
+void playerState_atk3_update(Player *p, float dt);
+void playerState_atk3_draw(Player *p);
+void playerState_atk3_exit(Player *p);
+void update_atk3_box_position(Player *p);
+extern PlayerState playerAtk3State;
+
+//CHARGEATK STATE
+void playerState_chargeAtk_init(Player *p);
+void playerState_chargeAtk_update(Player *p, float dt);
+void playerState_chargeAtk_draw(Player *p);
+void playerState_chargeAtk_exit(Player *p);
+void update_chargeAtk_box_position(Player *p);
+extern PlayerState playerChargeAtkState;
 
 void init_states_textures(Player *p);
 #endif

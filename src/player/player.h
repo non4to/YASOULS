@@ -17,20 +17,28 @@ typedef struct Player {
     float dx;
     float dy;
     float atkTimer;
+    float chargeTimer;
     bool onFloor;
     float speed;
     bool isPlayer;
     bool flip; 
+    bool comboReady;
     Texture2D spritesheet;
     PlayerState *currentState;
     Hitbox pushbox;
     Hitbox atk1box;
+    Hitbox atk2box;
+    Hitbox atk3box;
+    Hitbox blockbox;
+    Hitbox chargeAtkbox;
     Hitbox hurtbox;
+    CombatEventResult combatEvents;
 } Player;
 
 typedef struct ActionResult {
     bool jump;
     bool atk;
+    bool Satk;
     bool block;
 } ActionResult;
 
@@ -40,7 +48,9 @@ float get_gravity(void);
 void player_init(Player *p, World *w, float x, float y);
 void player_update(Player *p, World *w, float dt);
 void player_draw(Player *p);
-void change_state(Player *p, PlayerState *newState);
+void player_change_state(Player *p, PlayerState *newState);
 void update_player_position(Player *p, World *w, float goalX, float goalY);
+void player_on_hit(void *owner, Hitbox *attacker);
+void player_on_deflected(void *owner, Hitbox *attacker);
 ActionResult get_input_actions(void);
 #endif
